@@ -1,0 +1,72 @@
+body {
+    background-image: url("./assets/imgs/space.avif");
+    overflow: hidden;
+}
+.rotate90 {
+    rotate: 90deg;
+}
+
+.meteor {
+    animation: spin 15s infinite linear;
+}
+.flameTail {
+    position: absolute;
+    top: -320%;
+    left: 60%;
+    height: 380px;
+}
+
+.asteroid {
+    width: 130px;
+    height: 50px;
+    animation: move 6s linear;
+}
+
+@keyframes spin {
+    from {
+        rotate: 360deg;
+    }
+    to {
+        rotate: 0deg;
+    }
+}
+@keyframes move {
+    from {
+        translate: 100vw;
+    }
+    to {
+        translate: -20vw;
+    }
+}
+
+.puff-in-center {
+    animation: puff-in-center 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) both;
+}
+
+@keyframes puff-in-center {
+    0% {
+        transform: scale(2);
+        filter: blur(4px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    animation: slide-in-fwd-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-fwd-center {
+    0% {
+        transform: translateZ(-1400px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateZ(0);
+        opacity: 1;
+    }
+}
