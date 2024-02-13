@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./mybootstrap.min.css" rel="stylesheet" />
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./style.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <main>
-      <div class="d-flex justify-content-center mt-5">
-        <button id="play" class="btn btn-primary">Gioca</button>
-      </div>
-    </main>
-    <script src="./index.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="./mybootstrap.min.css" rel="stylesheet" />
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="./style.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <main>
+            <div class="d-flex justify-content-center mt-5 flex-column align-items-center">
+                <!--     <button id="play" class="btn btn-primary">Gioca</button> -->
+                <h2 class="text-center text-light display-1">EpiShuttle</h2>
+
+                <div class="my-2">
+                    <button id="playfacile" class="btn btn-success">facile</button>
+                    <button id="playmedio" class="btn btn-warning">medio</button>
+                    <button id="playdifficile" class="btn btn-danger">difficile</button>
+                </div>
+            </div>
+        </main>
+        <script src="./index.js"></script>
+    </body>
 </html>

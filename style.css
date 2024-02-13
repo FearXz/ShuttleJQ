@@ -19,7 +19,7 @@ body {
 .asteroid {
     width: 130px;
     height: 50px;
-    animation: move 6s linear;
+    /*   animation: move 6s linear; */
 }
 
 @keyframes spin {
