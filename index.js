@@ -17,7 +17,7 @@ function intervalCollision() {
     const hitboxShuttle = $("#hitboxShuttle");
     const hitboxMeteor = $(".hitboxMeteor");
     hitboxMeteor.each((index, meteor) => {
-      if (checkCollision($(meteor), hitboxShuttle)) {
+      if (checkCollision(hitboxShuttle, $(meteor))) {
         gameOver();
       }
     });
