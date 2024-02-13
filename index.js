@@ -2,6 +2,16 @@ $(document).ready(function () {
   $("#play").click(() => startGame());
 });
 
+let asteroidGenerationTimer;
+let count;
+let scoreTimer;
+let lastPosY = 0;
+let fireImg;
+let shuttleImg;
+
+// intervalCollision setta un intervallo di tempo per controllare le collisioni
+// tra la navicella e le meteore
+
 function intervalCollision() {
   setInterval(() => {
     const hitboxShuttle = $("#hitboxShuttle");
@@ -13,6 +23,9 @@ function intervalCollision() {
     });
   }, 100);
 }
+
+// checkCollision controlla se due div si sovrappongono
+
 function checkCollision($div1, $div2) {
   var rect1 = $div1[0].getBoundingClientRect();
   var rect2 = $div2[0].getBoundingClientRect();
@@ -22,8 +35,8 @@ function checkCollision($div1, $div2) {
   );
 }
 
-let count;
-let scoreTimer;
+// scoreBoardTimer aggiorna il punteggio ogni secondo
+
 const scoreBoardTimer = (pScore) => {
   count = 0;
   scoreTimer = setInterval(() => {
@@ -32,9 +45,7 @@ const scoreBoardTimer = (pScore) => {
   }, 1000);
 };
 
-let lastPosY = 0;
-let fireImg;
-let shuttleImg;
+// startGame inizializza il gioco e setta gli eventi per la navicella e le meteore
 
 function startGame() {
   $("main").empty();
@@ -67,7 +78,7 @@ function startGame() {
       });
       $("main").append(fireImg);
     }
-
+    // Se le immagini non esistono, creale
     if (shuttleImg.length === 0) {
       shuttleImg = $("<img/>", {
         src: "./assets/imgs/omi.png",
@@ -88,7 +99,7 @@ function startGame() {
       top: mousePosition.y - 50,
       transform: "rotate(270deg)",
     });
-
+    // Aggiorna la posizione delle immagini
     shuttleImg.attr("id", "hitboxShuttle").css({
       position: "absolute",
       left: mousePosition.x - 50,
@@ -98,7 +109,7 @@ function startGame() {
   });
   intervalCollision();
 }
-
+// createAsteroidDOM crea un div con un'immagine di una meteora e una coda di fiamma
 function createAsteroidDOM(posY) {
   var divOut = $("<div>")
     .addClass("position-absolute asteroid")
@@ -140,8 +151,7 @@ function createAsteroidDOM(posY) {
   return divOut;
 }
 
-let asteroidGenerationTimer;
-
+// generateAsteroid genera una meteora ogni 2 secondi
 function generateAsteroid() {
   asteroidGenerationTimer = setInterval(() => {
     let posY;
@@ -156,13 +166,14 @@ function generateAsteroid() {
     }, 5800);
   }, 2000);
 }
-
+// destroyAsteroid rimuove la meteora dal DOM
 function destroyAsteroid(currentAsteroid) {
   currentAsteroid.remove();
 }
-
+// settings è una funzione vuota
 function settings() {}
 
+// gameOver termina il gioco e mostra il punteggio
 function gameOver() {
   console.log("game over");
   $("main").empty();
