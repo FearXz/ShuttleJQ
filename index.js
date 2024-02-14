@@ -3,10 +3,10 @@ $(document).ready(function () {
   $("#playmedio").click(() => startGame(3.5, 3400, 500, 1));
   $("#playdifficile").click(() => startGame(1.2, 1100, 100, 2));
 });
-
+let meteorMultiplierTimer;
 let lastSettings = [];
 let asteroidGenerationTimer;
-let count;
+let count = 0;
 let scoreTimer;
 let lastPosY = 0;
 let fireImg;
@@ -52,12 +52,22 @@ const scoreBoardTimer = (pScore, scoreMultiplier) => {
 
 const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultiplier) => {
   lastSettings = [travelTime, destroyAsteroidTimeout, generateTime, scoreMultiplier];
+
   $("main").empty();
   var pScore = $("<p>").addClass("position-absolute top-0 start-0 text-white m-5");
   pScore.text("score : 0");
   $("main").append(pScore);
   scoreBoardTimer(pScore, scoreMultiplier);
   generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
+  meteorMultiplierTimer = setInterval(() => {
+    if (count % 10 == 0 && count != 0) {
+      generateTime -= generateTime * 0.1;
+
+      stopMeteor();
+      generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
+    }
+  }, 500);
+
   $("main").css("cursor", "none");
   $(document).mousemove(function (event) {
     var mousePosition = {
@@ -113,6 +123,9 @@ const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultip
   });
   intervalCollision(scoreMultiplier);
 };
+function stopMeteor() {
+  clearInterval(asteroidGenerationTimer);
+}
 // createAsteroidDOM crea un div con un'immagine di una meteora e una coda di fiamma
 function createAsteroidDOM(posY, travelTime) {
   var divOut = $("<div>")
@@ -183,6 +196,7 @@ function gameOver(scoreMultiplier) {
   console.log("game over");
   $("main").empty();
 
+  clearInterval(meteorMultiplierTimer);
   clearInterval(asteroidGenerationTimer);
   clearInterval(scoreTimer);
 
@@ -215,6 +229,7 @@ function gameOver(scoreMultiplier) {
   restart.click(() => {
     startGame(lastSettings[0], lastSettings[1], lastSettings[2], lastSettings[3]);
   });
+  //count = 0;
   GameOverDiv.append(restart);
   setTimeout(() => {
     restart.css({ visibility: "visible" });
