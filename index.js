@@ -3,13 +3,15 @@ $(document).ready(function () {
   // tempo di percorrenza, tempo di distruzione, tempo di generazione, moltiplicatore punteggio
 
   $("#playfacile").click(() => startGame(6, 5800, 1000, 0.5));
-  $("#playmedio").click(() => startGame(3.5, 3400, 500, 1));
-  $("#playdifficile").click(() => startGame(1.2, 1100, 100, 2));
+  $("#playmedio").click(() => startGame(3.5, 3400, 500, 2));
+  $("#playdifficile").click(() => startGame(1.2, 1100, 100, 10));
 });
+let lastScore = 0;
+let count = 0;
+let scoreIncrement;
 let meteorMultiplierTimer;
 let lastSettings = [];
 let asteroidGenerationTimer;
-let count = 0;
 let scoreTimer;
 let lastPosY = 0;
 let fireImg;
@@ -43,11 +45,15 @@ function checkCollision($div1, $div2) {
 
 // scoreBoardTimer aggiorna il punteggio ogni secondo
 
-const scoreBoardTimer = (pScore, scoreMultiplier) => {
+const scoreBoardTimer = (pScore) => {
   count = 0;
+  lastScore = 0;
   scoreTimer = setInterval(() => {
     count++;
-    pScore.text(`score: ${count * scoreMultiplier}`);
+    pScore.text(`score: ${count * scoreIncrement + lastScore}`);
+    console.log(count);
+    console.log(scoreIncrement);
+    console.log(lastScore);
   }, 1000);
 };
 
@@ -55,19 +61,23 @@ const scoreBoardTimer = (pScore, scoreMultiplier) => {
 
 const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultiplier) => {
   lastSettings = [travelTime, destroyAsteroidTimeout, generateTime, scoreMultiplier];
-
+  scoreIncrement = scoreMultiplier;
   $("main").empty();
   var pScore = $("<p>").addClass("position-absolute top-0 start-0 text-white m-5");
   pScore.text("score : 0");
   $("main").append(pScore);
-  scoreBoardTimer(pScore, scoreMultiplier);
+  scoreBoardTimer(pScore);
   generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
 
   meteorMultiplierTimer = setInterval(() => {
     if (count % 10 == 0 && count != 0) {
       generateTime -= generateTime * 0.05;
-      travelTime -= travelTime * 0.05;
-      destroyAsteroidTimeout -= destroyAsteroidTimeout * 0.05;
+      travelTime -= travelTime * 0.1;
+      destroyAsteroidTimeout -= destroyAsteroidTimeout * 0.1;
+
+      lastScore += count * scoreIncrement;
+      scoreIncrement = scoreIncrement * 2;
+      count = 0;
 
       stopMeteor();
       generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
@@ -199,7 +209,7 @@ function destroyAsteroid(currentAsteroid) {
 }
 
 // gameOver termina il gioco e mostra il punteggio
-function gameOver(scoreMultiplier) {
+function gameOver() {
   console.log("game over");
   $("main").empty();
 
@@ -226,7 +236,7 @@ function gameOver(scoreMultiplier) {
   GameOverDiv.append(finalDiv);
 
   let scoreDiv = $("<div>").addClass("d-flex flex-column text-center text-white display-3");
-  scoreDiv.text(`score: ${count * scoreMultiplier}`);
+  scoreDiv.text(`score: ${count * scoreIncrement + lastScore}`);
 
   GameOverDiv.append(scoreDiv);
   $("main").append(GameOverDiv);
