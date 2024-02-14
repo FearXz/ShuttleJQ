@@ -51,7 +51,7 @@ const scoreBoardTimer = (pScore, scoreMultiplier) => {
 // startGame inizializza il gioco e setta gli eventi per la navicella e le meteore
 
 const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultiplier) => {
-  lastSettings = [travelTime, destroyAsteroidTimeout, generateTime];
+  lastSettings = [travelTime, destroyAsteroidTimeout, generateTime, scoreMultiplier];
   $("main").empty();
   var pScore = $("<p>").addClass("position-absolute top-0 start-0 text-white m-5");
   pScore.text("score : 0");
@@ -213,7 +213,7 @@ function gameOver(scoreMultiplier) {
   let restart = $("<button>").addClass("btn btn-info text-light slide-in mt-2").css({ visibility: "hidden" });
   restart.text("Gioca Ancora");
   restart.click(() => {
-    startGame(lastSettings[0], lastSettings[1], lastSettings[2]);
+    startGame(lastSettings[0], lastSettings[1], lastSettings[2], lastSettings[3]);
   });
   GameOverDiv.append(restart);
   setTimeout(() => {
