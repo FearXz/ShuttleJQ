@@ -62,6 +62,7 @@ const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultip
   $("main").append(pScore);
   scoreBoardTimer(pScore, scoreMultiplier);
   generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
+
   meteorMultiplierTimer = setInterval(() => {
     if (count % 10 == 0 && count != 0) {
       generateTime -= generateTime * 0.05;
