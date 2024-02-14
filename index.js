@@ -2,8 +2,8 @@ $(document).ready(function () {
   // i parametri di startGame sono rispettivamente:
   // tempo di percorrenza, tempo di distruzione, tempo di generazione, moltiplicatore punteggio
 
-  $("#playfacile").click(() => startGame(6, 5800, 1000, 0.5));
-  $("#playmedio").click(() => startGame(3.5, 3400, 500, 2));
+  $("#playfacile").click(() => startGame(6, 5800, 1000, 0.3));
+  $("#playmedio").click(() => startGame(3.5, 3400, 500, 1));
   $("#playdifficile").click(() => startGame(1.2, 1100, 100, 10));
 });
 let lastScore = 0;
