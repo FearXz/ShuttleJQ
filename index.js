@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  // i parametri di startGame sono rispettivamente:
+  // tempo di percorrenza, tempo di distruzione, tempo di generazione, moltiplicatore punteggio
+
   $("#playfacile").click(() => startGame(6, 5800, 1000, 0.5));
   $("#playmedio").click(() => startGame(3.5, 3400, 500, 1));
   $("#playdifficile").click(() => startGame(1.2, 1100, 100, 2));
@@ -61,7 +64,9 @@ const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultip
   generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
   meteorMultiplierTimer = setInterval(() => {
     if (count % 10 == 0 && count != 0) {
-      generateTime -= generateTime * 0.1;
+      generateTime -= generateTime * 0.05;
+      travelTime -= travelTime * 0.05;
+      destroyAsteroidTimeout -= destroyAsteroidTimeout * 0.05;
 
       stopMeteor();
       generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime);
@@ -123,6 +128,7 @@ const startGame = (travelTime, destroyAsteroidTimeout, generateTime, scoreMultip
   });
   intervalCollision(scoreMultiplier);
 };
+
 function stopMeteor() {
   clearInterval(asteroidGenerationTimer);
 }
