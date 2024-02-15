@@ -188,7 +188,7 @@ function createAsteroidDOM(posY, travelTime) {
   return divOut;
 }
 
-// generateAsteroid genera una meteora ogni 100ms
+// generateAsteroid genera una meteora ogni tot millisecondi
 function generateAsteroid(travelTime, destroyAsteroidTimeout, generateTime) {
   asteroidGenerationTimer = setInterval(() => {
     let posY;
@@ -246,7 +246,7 @@ function gameOver() {
   restart.click(() => {
     startGame(lastSettings[0], lastSettings[1], lastSettings[2], lastSettings[3]);
   });
-  //count = 0;
+
   GameOverDiv.append(restart);
   setTimeout(() => {
     restart.css({ visibility: "visible" });
